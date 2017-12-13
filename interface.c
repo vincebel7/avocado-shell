@@ -1,10 +1,10 @@
 /********************************************************************
   
 USAGE AGREEMENT: The Avocado Shell (avo) is a free and open-source 
-shell written by Vince Belanger. Do whatever you want with it because
-I'm not a prick.
+shell written by Vince Belanger for fun and experience. Do whatever
+you want with it.
  
-VERSION: 0.0.2
+VERSION: 0.0.3
 
 ********************************************************************/
 
@@ -39,6 +39,7 @@ int main(){
 
    shell_line();
 
+   //TODO: put tokenization in method
    while(getline(&input, &n, stdin) != EOF){
       argv = malloc(sizeof(*argv) * n);
 
