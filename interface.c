@@ -4,7 +4,7 @@ USAGE AGREEMENT: The Avocado Shell (avo) is a free and open-source
 shell written by Vince Belanger for fun and experience. Do whatever
 you want with it.
  
-VERSION: 0.0.3
+VERSION: 0.0.4
 
 ********************************************************************/
 
@@ -19,10 +19,24 @@ VERSION: 0.0.3
 #define TAB " \t"
 #define TAB_N " \t\n"
 
+#define ANSI_COLOR_LG	"\x1b[36m"
+#define ANSI_NO_COLOR	"\x1b[0m"
+
+char * get_cwd(){
+   char cwd[1024];
+   char* dir = malloc(3 * sizeof(char)); 
+   dir = getcwd(cwd, sizeof(cwd));
+   return dir;
+}
+
 void shell_line(){
    //char usr[1024];
    char cwd[1024];
-   printf("[avo: %s]> ", getcwd(cwd, sizeof(cwd))); 
+   char* dir = malloc(3 * sizeof(char));
+   dir = get_cwd();
+   printf(ANSI_COLOR_LG "[avo: %s]>", dir);
+   //printf(ANSI_COLOR_LG "[avo: %s]>", getcwd(cwd, sizeof(cwd)));
+   printf(ANSI_NO_COLOR " "); 
    //TODO: tokenize by forward slashes
 }
 
@@ -64,7 +78,7 @@ int main(){
       }
 
       if((child = fork()) == -1){
-         fprintf(stderr, "Child failed to fork\n");
+         fprintf(stderr, "Error 1000\n");
          exit(1);
       }
 
@@ -73,7 +87,7 @@ int main(){
 
       if(child == 0){
          execvp(file, &newargv[0]);
-         fprintf(stderr, "./avosh: %s: No such file or directory\n", file);
+         fprintf(stderr, "./avo: %s: No such file or directory\n", file);
          exit(1);
       }
 
